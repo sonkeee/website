@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FSJ Award Night</title>
+<title>Baden 6 Award Night</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
@@ -329,7 +329,6 @@
 
 <footer>
   <div class="empty-note">Alle Stimmen werden live in einer Online-Datenbank gespeichert und sind für alle mit diesem Link sichtbar.</div>
-  <button class="reset-link" id="resetAllBtn">Alle Stimmen zurücksetzen (nur für Teamer:innen)</button>
 </footer>
 
 <div class="overlay" id="overlay" style="display:none;">
@@ -350,7 +349,7 @@ const firebaseConfig = {
 /* ============================================================ */
 
 let db = null;
-let configOk = firebaseConfig.databaseURL !== "DEINE_DATABASE_URL_HIER_EINTRAGEN";
+let configOk = firebaseConfig.databaseURL !== "https://baden-6-awards-default-rtdb.europe-west1.firebasedatabase.app";
 
 if (configOk) {
   firebase.initializeApp(firebaseConfig);
@@ -375,11 +374,11 @@ if (configOk) {
 }
 
 const CATEGORIES = [
-  { id:'motivator', emoji:'⚡', title:'Beste:r Motivator:in', desc:'Wer bringt uns morgens um 7 Uhr trotzdem in Schwung?' },
-  { id:'lacher', emoji:'😂', title:'Lachflash-Garant:in', desc:'Bei wem verliert ihr zuverlässig die Kontrolle über euer Gesicht?' },
-  { id:'kueche', emoji:'🥄', title:'Küchenheld:in', desc:'Wer rettet mit Improvisation jede Camp-Mahlzeit?' },
+  { id:'motivator', emoji:'⚡', title:'Bester Motivator:in', desc:'Wer bringt uns morgens um 7 Uhr trotzdem in Schwung?' },
+  { id:'lacher', emoji:'😂', title:'Lachflash-Garantie', desc:'Bei wem verliert ihr zuverlässig die Kontrolle über euer Gesicht?' },
+  { id:'kueche', emoji:'🥄', title:'Küchenheld', desc:'Wer rettet mit Improvisation jede Camp-Mahlzeit?' },
   { id:'schlafmuetze', emoji:'😴', title:'Schlafmütze des Jahres', desc:'Wer verpennt trotz drei Weckern zuverlässig den Treffpunkt?' },
-  { id:'herz', emoji:'❤️', title:'Herz des Teams', desc:'Wer ist immer als Erste:r da, wenn jemand Hilfe braucht?' },
+  { id:'herz', emoji:'❤️', title:'Herz des Teams', desc:'Wer ist immer als Erster da, wenn jemand Hilfe braucht?' },
   { id:'kreativ', emoji:'🎨', title:'Kreativster Kopf', desc:'Wer hat bei Spontan-Programm & Energizern die besten Ideen?' },
   { id:'zuverlaessig', emoji:'🧭', title:'Fels in der Brandung', desc:'Wer bleibt ruhig, wenn der Plan komplett auseinanderfällt?' },
   { id:'tanz', emoji:'🕺', title:'Beste Tanzmoves', desc:'Wer räumt bei jeder Abschlussparty die Tanzfläche?' },
