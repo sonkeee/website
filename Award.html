@@ -349,7 +349,7 @@ const firebaseConfig = {
 /* ============================================================ */
 
 let db = null;
-let configOk = firebaseConfig.databaseURL !== "https://baden-6-awards-default-rtdb.europe-west1.firebasedatabase.app";
+let configOk = firebaseConfig.databaseURL !== "keine-datenbank-url-eingetragen";
 
 if (configOk) {
   firebase.initializeApp(firebaseConfig);
@@ -584,11 +584,14 @@ document.getElementById('changeNameBtn').addEventListener('click', ()=>{
   document.getElementById('nameInput').value = '';
   document.getElementById('nameInput').focus();
 });
-document.getElementById('resetAllBtn').addEventListener('click', ()=>{
-  if(!configOk){ alert('Firebase ist noch nicht konfiguriert.'); return; }
-  if(!confirm('Wirklich ALLE Stimmen in allen Kategorien löschen? Das kann nicht rückgängig gemacht werden.')) return;
-  CATEGORIES.forEach(c => db.ref('votes/' + c.id).remove());
-});
+const resetAllBtn = document.getElementById('resetAllBtn');
+if (resetAllBtn) {
+  resetAllBtn.addEventListener('click', ()=>{
+    if(!configOk){ alert('Firebase ist noch nicht konfiguriert.'); return; }
+    if(!confirm('Wirklich ALLE Stimmen in allen Kategorien löschen? Das kann nicht rückgängig gemacht werden.')) return;
+    CATEGORIES.forEach(c => db.ref('votes/' + c.id).remove());
+  });
+}
 
 init();
 </script>
