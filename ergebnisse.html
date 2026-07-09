@@ -103,7 +103,14 @@
     font-size:13px;
   }
   .btn-ghost:hover{ background:rgba(245,240,230,0.06); color:var(--cream); }
-  .top-link{ display:flex; justify-content:center; margin-top:22px; }
+  .btn-gold-outline{
+    background:transparent;
+    color:var(--gold-bright);
+    border:1px solid rgba(216,178,92,0.5);
+    font-size:13px;
+  }
+  .btn-gold-outline:hover{ background:rgba(216,178,92,0.1); transform:translateY(-1px); }
+  .top-link{ display:flex; justify-content:center; margin-top:22px; gap:10px; flex-wrap:wrap; }
 
   main{
     max-width:760px;
@@ -197,8 +204,146 @@
   }
   .config-warning code{ background:rgba(0,0,0,0.3); padding:1px 5px; border-radius:4px; }
 
+  /* ===== Präsentations-Modus ===== */
+  .present-overlay{
+    position:fixed; inset:0; z-index:100;
+    background:
+      radial-gradient(circle at 50% 20%, rgba(216,178,92,0.16), transparent 55%),
+      linear-gradient(160deg, #0e1026, #1c0e2c 70%);
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:40px 24px;
+  }
+  .present-overlay.active{ display:flex; }
+  .present-exit{
+    position:absolute; top:22px; right:24px;
+    background:rgba(245,240,230,0.06);
+    border:1px solid var(--line);
+    color:var(--cream-dim);
+    font-size:13px;
+    padding:9px 16px;
+  }
+  .present-exit:hover{ color:var(--cream); background:rgba(245,240,230,0.1); }
+  .present-counter{
+    position:absolute; top:26px; left:26px;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color:var(--cream-dim);
+    letter-spacing:0.1em;
+  }
+  .present-card{
+    text-align:center;
+    max-width:640px;
+    width:100%;
+  }
+  .present-eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:10px;
+  }
+  .present-emoji{
+    font-size:56px;
+    margin-bottom:6px;
+    display:block;
+    filter: drop-shadow(0 0 22px rgba(216,178,92,0.35));
+  }
+  .present-title{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:clamp(28px, 5vw, 44px);
+    margin:0 0 34px;
+    background:linear-gradient(180deg, var(--cream), var(--gold-bright));
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  .reveal-btn{
+    font-size:16px;
+    padding:15px 32px;
+    background:linear-gradient(180deg, var(--gold-bright), var(--gold));
+    color:#20140a;
+  }
+  .reveal-btn:hover{ transform:translateY(-2px); box-shadow:0 10px 26px rgba(216,178,92,0.35); }
+  .winner-reveal{
+    display:none;
+    animation: winnerIn 0.5s cubic-bezier(.2,.8,.2,1);
+  }
+  .winner-reveal.shown{ display:block; }
+  @keyframes winnerIn{
+    0%{ opacity:0; transform:scale(0.85) translateY(10px); }
+    100%{ opacity:1; transform:scale(1) translateY(0); }
+  }
+  .winner-trophy{ font-size:40px; display:block; margin-bottom:8px; animation: bob 2.6s ease-in-out infinite; }
+  @keyframes bob{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-8px);} }
+  .winner-name{
+    font-family:'Fraunces', serif;
+    font-weight:700;
+    font-size:clamp(34px, 7vw, 58px);
+    color:var(--gold-bright);
+    margin:0 0 8px;
+  }
+  .winner-votes{
+    font-family:'JetBrains Mono', monospace;
+    font-size:13px;
+    color:var(--cream-dim);
+    margin-bottom:26px;
+  }
+  .runner-list{
+    max-width:360px; margin:0 auto;
+    text-align:left;
+    border-top:1px solid var(--line);
+    padding-top:16px;
+  }
+  .runner-list .rl-title{
+    font-family:'JetBrains Mono', monospace;
+    font-size:10.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--cream-dim);
+    margin-bottom:10px;
+  }
+  .runner-row{
+    display:flex; justify-content:space-between;
+    font-size:14px; padding:5px 0;
+    color:var(--cream-dim);
+  }
+  .runner-row .rname{ color:var(--cream); }
+  .present-nav{
+    display:flex; align-items:center; gap:18px;
+    margin-top:38px;
+  }
+  .present-nav button{
+    background:rgba(245,240,230,0.06);
+    border:1px solid var(--line);
+    color:var(--cream);
+    font-size:14px;
+    padding:10px 18px;
+  }
+  .present-nav button:hover{ background:rgba(245,240,230,0.1); }
+  .present-nav button:disabled{ opacity:0.35; cursor:default; }
+  .dots{ display:flex; gap:8px; }
+  .dot-nav{
+    width:8px; height:8px; border-radius:50%;
+    background:rgba(245,240,230,0.25);
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .dot-nav.on{ background:var(--gold-bright); transform:scale(1.25); }
+  .sparkle{
+    position:absolute; font-size:22px; opacity:0;
+    animation: sparkleFloat 1.6s ease-out forwards;
+    pointer-events:none;
+  }
+  @keyframes sparkleFloat{
+    0%{ opacity:0; transform:translateY(0) scale(0.6) rotate(0deg); }
+    15%{ opacity:1; }
+    100%{ opacity:0; transform:translateY(-90px) scale(1.1) rotate(30deg); }
+  }
+
   @media (prefers-reduced-motion: reduce){
-    *{ transition:none !important; }
+    *{ transition:none !important; animation:none !important; }
   }
 </style>
 </head>
@@ -209,12 +354,26 @@
   <h1>Die Ergebnisse</h1>
   <p class="sub">Live-Stand der Abstimmung — aktualisiert sich automatisch, sobald neue Stimmen reinkommen.</p>
   <div class="status-bar"><span class="dot" id="connDot"></span><span id="connText">Verbinde...</span></div>
-  <div class="top-link"><a href="Award.html" style="text-decoration:none;"><button class="btn-ghost">← Zurück zur Abstimmung</button></a></div>
+  <div class="top-link">
+    <a href="Award.html" style="text-decoration:none;"><button class="btn-ghost">← Zurück zur Abstimmung</button></a>
+    <button class="btn-gold-outline" id="startPresentBtn">🎬 Präsentations-Modus</button>
+  </div>
 </header>
 
 <main id="main"></main>
 
 <footer>Baden 6 Award Night</footer>
+
+<div class="present-overlay" id="presentOverlay">
+  <button class="present-exit" id="presentExitBtn">✕ Beenden</button>
+  <div class="present-counter" id="presentCounter">1 / 5</div>
+  <div class="present-card" id="presentCard"></div>
+  <div class="present-nav">
+    <button id="presentPrevBtn">← Zurück</button>
+    <div class="dots" id="presentDots"></div>
+    <button id="presentNextBtn">Weiter →</button>
+  </div>
+</div>
 
 <script>
 const firebaseConfig = {
@@ -337,13 +496,145 @@ function renderCategory(catId, votes){
 }
 
 renderBlocks();
+const latestVotes = {}; // catId -> votes object, kept in sync for both views
 if (configOk) {
   CATEGORIES.forEach(c => {
     db.ref('votes/' + c.id).on('value', snap => {
-      renderCategory(c.id, snap.val() || {});
+      latestVotes[c.id] = snap.val() || {};
+      renderCategory(c.id, latestVotes[c.id]);
+      if (presentActive && CATEGORIES[presentIndex].id === c.id) {
+        renderSlide(); // keep the current slide's numbers live too
+      }
     });
   });
 }
+
+/* ===== Präsentations-Modus ===== */
+let presentActive = false;
+let presentIndex = 0;
+const revealedSet = new Set();
+
+function catResult(catId){
+  const votes = latestVotes[catId] || {};
+  const ranked = tally(votes);
+  const total = ranked.reduce((s,r)=>s+r.count, 0);
+  return { ranked, total };
+}
+
+function renderDots(){
+  const dots = document.getElementById('presentDots');
+  dots.innerHTML = CATEGORIES.map((c,i)=>`<span class="dot-nav ${i===presentIndex?'on':''}"></span>`).join('');
+}
+
+function renderSlide(){
+  const cat = CATEGORIES[presentIndex];
+  const card = document.getElementById('presentCard');
+  const { ranked, total } = catResult(cat.id);
+  const revealed = revealedSet.has(cat.id);
+
+  document.getElementById('presentCounter').textContent = (presentIndex+1) + ' / ' + CATEGORIES.length;
+  renderDots();
+  document.getElementById('presentPrevBtn').disabled = presentIndex === 0;
+  document.getElementById('presentNextBtn').textContent = presentIndex === CATEGORIES.length - 1 ? 'Fertig ✓' : 'Weiter →';
+
+  if(ranked.length === 0){
+    card.innerHTML = `
+      <div class="present-eyebrow">Kategorie ${presentIndex+1} von ${CATEGORIES.length}</div>
+      <span class="present-emoji">${cat.emoji}</span>
+      <h2 class="present-title">${esc(cat.title)}</h2>
+      <div class="empty-note">Noch keine Stimmen in dieser Kategorie.</div>
+    `;
+    return;
+  }
+
+  const winner = ranked[0];
+  const rest = ranked.slice(1, 4); // Top 3 Verfolger reichen auf der Bühne
+
+  if(!revealed){
+    card.innerHTML = `
+      <div class="present-eyebrow">Kategorie ${presentIndex+1} von ${CATEGORIES.length} · ${total} ${total===1?'Stimme':'Stimmen'}</div>
+      <span class="present-emoji">${cat.emoji}</span>
+      <h2 class="present-title">${esc(cat.title)}</h2>
+      <button class="reveal-btn" id="revealBtn">🎉 Gewinner enthüllen</button>
+    `;
+    document.getElementById('revealBtn').onclick = () => {
+      revealedSet.add(cat.id);
+      spawnSparkles();
+      renderSlide();
+    };
+  } else {
+    card.innerHTML = `
+      <div class="present-eyebrow">${esc(cat.title)}</div>
+      <div class="winner-reveal shown">
+        <span class="winner-trophy">🏆</span>
+        <div class="winner-name">${esc(winner.display)}</div>
+        <div class="winner-votes">${winner.count} ${winner.count===1?'Stimme':'Stimmen'} von ${total} insgesamt</div>
+        ${rest.length ? `
+          <div class="runner-list">
+            <div class="rl-title">Auch stark im Rennen</div>
+            ${rest.map(r=>`<div class="runner-row"><span class="rname">${esc(r.display)}</span><span>${r.count}</span></div>`).join('')}
+          </div>
+        ` : ''}
+      </div>
+    `;
+  }
+}
+
+function spawnSparkles(){
+  const card = document.getElementById('presentCard');
+  const emojis = ['✨','🎊','🎉','⭐'];
+  for(let i=0;i<10;i++){
+    const s = document.createElement('span');
+    s.className = 'sparkle';
+    s.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    s.style.left = (10 + Math.random()*80) + '%';
+    s.style.top = (20 + Math.random()*30) + '%';
+    s.style.animationDelay = (Math.random()*0.3) + 's';
+    card.appendChild(s);
+    setTimeout(()=> s.remove(), 2000);
+  }
+}
+
+function enterPresentMode(){
+  presentActive = true;
+  presentIndex = 0;
+  revealedSet.clear();
+  document.getElementById('presentOverlay').classList.add('active');
+  renderSlide();
+}
+function exitPresentMode(){
+  presentActive = false;
+  document.getElementById('presentOverlay').classList.remove('active');
+}
+function nextSlide(){
+  if(presentIndex < CATEGORIES.length - 1){ presentIndex++; renderSlide(); }
+  else { exitPresentMode(); }
+}
+function prevSlide(){
+  if(presentIndex > 0){ presentIndex--; renderSlide(); }
+}
+
+document.getElementById('startPresentBtn').addEventListener('click', enterPresentMode);
+document.getElementById('presentExitBtn').addEventListener('click', exitPresentMode);
+document.getElementById('presentNextBtn').addEventListener('click', nextSlide);
+document.getElementById('presentPrevBtn').addEventListener('click', prevSlide);
+
+document.addEventListener('keydown', (e) => {
+  if(!presentActive) return;
+  if(e.key === 'Escape'){ exitPresentMode(); }
+  else if(e.key === 'ArrowRight' || e.key === ' '){
+    e.preventDefault();
+    const cat = CATEGORIES[presentIndex];
+    if(!revealedSet.has(cat.id) && catResult(cat.id).ranked.length){
+      revealedSet.add(cat.id);
+      spawnSparkles();
+      renderSlide();
+    } else {
+      nextSlide();
+    }
+  }
+  else if(e.key === 'ArrowLeft'){ prevSlide(); }
+});
 </script>
 </body>
 </html>
